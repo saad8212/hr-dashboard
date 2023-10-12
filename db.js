@@ -12,7 +12,7 @@ mongoose.connect(db, {
         console.log("database connection established");
     })
     .catch((err) => {
-        console.log("error connecting to database, ", err);
+        console.log("error connecting to databases, ", err);
     });
 module.export = { dbconfig };
 
