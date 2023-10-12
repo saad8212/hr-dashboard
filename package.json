@@ -7,7 +7,9 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "prod": "node index.js",
-    "test": "mocha tests/EmployeeController.test.js"
+    "test": "mocha tests/EmployeeController.test.js",
+    "empSeeding": "node seeders/EmployeeSeeders.js",
+    "roleSeeding": "node seeders/RoleSeeders.js"
   },
   "author": "",
   "license": "ISC",

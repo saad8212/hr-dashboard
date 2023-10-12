@@ -16,22 +16,37 @@ const {
   deleteEmployee,
 } = require("../controllers/EmployeeController");
 
-// Admin Routes
+const {
+  createRole,
+  getRoles,
+  getRoleById,
+  updateRole,
+  deleteRole,
+} = require("../controllers/RoleController");
+
+// Admin Routes (Protected for Admins)
 router.post("/login", postLogin); // Login User
 
-// User Routes
-router.route("/user/:id").patch(upload.single("image"), update_user); // Update Existing User
-router.get("/api/v1/users", get_users); // Main User Route
+// User Routes (Protected for Users)
+router.route("/user/:id").patch(upload.single("image"), verifyToken, update_user); // Update Existing User
+router.get("/api/v1/users", verifyToken, get_users); // Main User Route
 
-// Employee Routes
-router.post("/employees", createEmployee); // Create Employee
+// Employee Routes (Not protected by verifyToken)
+router.post("/employees", upload.single('image'), createEmployee); // Create Employee
 router.get("/employees", getEmployees); // Get all Employees
 router.get("/employees/:id", getEmployeeById); // Get a Single Employee by ID
-router.patch("/employees/:id", updateEmployee); // Update (Patch) an Employee by ID
+router.patch("/employees/:id",upload.single('image'), updateEmployee); // Update (Patch) an Employee by ID
 router.delete("/employees/:id", deleteEmployee); // Delete an Employee by ID
 
-// Dashboard Route
-router.get("/", (req, res) => {
+// Role Routes (Protected for Admins)
+router.post("/roles", createRole); // Create a Role
+router.get("/roles", verifyToken, getRoles); // Get all Roles
+router.get("/roles/:id", verifyToken, getRoleById); // Get a Single Role by ID
+router.patch("/roles/:id", verifyToken, updateRole); // Update a Role by ID
+router.delete("/roles/:id", verifyToken, deleteRole); // Delete a Role by ID
+
+// Dashboard Route (Protected for Admins)
+router.get("/", verifyToken, (req, res) => {
   res.send("<h2>Dashboard</h2>");
 });
 

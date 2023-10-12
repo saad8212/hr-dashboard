@@ -9,7 +9,7 @@ const employeeSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "Email is required"],
-     
+    unique: true,
     trim: true,
     match: [
       /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
@@ -22,9 +22,8 @@ const employeeSchema = new mongoose.Schema({
   designation: String,
   role: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Role", 
-    default: 'User',
-    enum: 'Admin, Moderator, User'
+    ref: "Role",  
+    required: [true, 'Role Id is Required!']
   },
   status: {
     type: String,

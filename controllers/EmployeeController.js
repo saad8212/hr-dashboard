@@ -38,7 +38,7 @@ async function getEmployees(req, res) {
   try {
     // Filtering, Advanced Filtering, Sorting, Fields Limiting
     const { query, options } = buildQuery(req.query);
-    const employees = await Employee.find(query).select(options.fields).sort(options.sort);
+    const employees = await Employee.find(query).select(options.fields).sort(options.sort) .populate('role', '-_id name');
 
     res.status(200).json({
       status: "success",
