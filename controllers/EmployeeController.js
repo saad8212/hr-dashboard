@@ -71,7 +71,7 @@ async function updateEmployee(req, res) {
     const { id } = req.params;
     const { name, email, department, designation, role, status } = req.body;
     const employee = await Employee.findById(id);
-
+    console.log("req", req.body)
     if (!employee) {
       return res.status(404).json({ message: "Employee not found" });
     }
