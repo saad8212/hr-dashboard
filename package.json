@@ -9,7 +9,8 @@
     "prod": "node index.js",
     "test": "mocha tests/EmployeeController.test.js",
     "empSeeding": "node seeders/EmployeeSeeders.js",
-    "roleSeeding": "node seeders/RoleSeeders.js"
+    "roleSeeding": "node seeders/RoleSeeders.js",
+    "DeleteEmp": "node seeders/DeleteEmployees.js"
   },
   "author": "",
   "license": "ISC",

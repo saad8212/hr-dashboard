@@ -40,7 +40,7 @@ router.delete("/employees/:id", deleteEmployee); // Delete an Employee by ID
 
 // Role Routes (Protected for Admins)
 router.post("/roles", createRole); // Create a Role
-router.get("/roles", verifyToken, getRoles); // Get all Roles
+router.get("/roles", getRoles); // Get all Roles
 router.get("/roles/:id", verifyToken, getRoleById); // Get a Single Role by ID
 router.patch("/roles/:id", verifyToken, updateRole); // Update a Role by ID
 router.delete("/roles/:id", verifyToken, deleteRole); // Delete a Role by ID
