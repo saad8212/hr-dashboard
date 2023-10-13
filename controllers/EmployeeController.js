@@ -1,6 +1,6 @@
 const cloudinary = require("cloudinary").v2;
 const mongoose = require("mongoose");
-const Employee = require('../models/employee');
+const Employee = require("../models/employee");
 
 // Create Employee
 async function createEmployee(req, res) {
@@ -38,7 +38,10 @@ async function getEmployees(req, res) {
   try {
     // Filtering, Advanced Filtering, Sorting, Fields Limiting
     const { query, options } = buildQuery(req.query);
-    const employees = await Employee.find(query).select(options.fields).sort(options.sort) .populate('role', 'name');
+    const employees = await Employee.find(query)
+      .select(options.fields)
+      .sort(options.sort)
+      .populate("role", "name");
 
     res.status(200).json({
       status: "success",
@@ -71,7 +74,7 @@ async function updateEmployee(req, res) {
     const { id } = req.params;
     const { name, email, department, designation, role, status } = req.body;
     const employee = await Employee.findById(id);
-    console.log("req", req.body)
+    console.log("req", req.body);
     if (!employee) {
       return res.status(404).json({ message: "Employee not found" });
     }
@@ -86,7 +89,7 @@ async function updateEmployee(req, res) {
     employee.email = email || employee.email;
     employee.department = department || employee.department;
     employee.designation = designation || employee.designation;
-    employee.role = role || employee.role;
+    employee.role = mongoose.Types.ObjectId(role) || employee.role;
     employee.status = status || employee.status;
 
     const updatedEmployee = await employee.save();
@@ -129,8 +132,16 @@ function buildQuery(queryParams) {
 
   // Advanced Filtering
   for (const key in query) {
-    if (query[key].startsWith("gte") || query[key].startsWith("gt") || query[key].startsWith("lte") || query[key].startsWith("lt")) {
-      query[key] = query[key].replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+    if (
+      query[key].startsWith("gte") ||
+      query[key].startsWith("gt") ||
+      query[key].startsWith("lte") ||
+      query[key].startsWith("lt")
+    ) {
+      query[key] = query[key].replace(
+        /\b(gte|gt|lte|lt)\b/g,
+        (match) => `$${match}`
+      );
     }
   }
 
