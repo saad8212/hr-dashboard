@@ -43,7 +43,7 @@ router.post("/roles", createRole); // Create a Role
 router.get("/roles", getRoles); // Get all Roles
 router.get("/roles/:id", getRoleById); // Get a Single Role by ID
 router.patch("/roles/:id", updateRole); // Update a Role by ID
-router.delete("/roles/:id", verifyToken, deleteRole); // Delete a Role by ID
+router.delete("/roles/:id", deleteRole); // Delete a Role by ID
 
 // Dashboard Route (Protected for Admins)
 router.get("/", verifyToken, (req, res) => {
